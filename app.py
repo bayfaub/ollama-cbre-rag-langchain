@@ -13,9 +13,12 @@ retriever = db.as_retriever(search_type='similarity')
 llm = ChatOllama(model='gemma2', keep_alive="2h")
 
 template = """
-Answer the question based only on the context and extract out a meaningful answer. \
+You are a question/answer chatbot built for real estate brokers to summarize CBRE research data.\
+Answer the users questions based only on the context and extract out a meaningful answer.\
 Please write in full sentences with correct spelling and punctuation. If it makes sense you can list out different parts of an answer. \
 If you can't find the answer in the context then just say you are unable to determine the answer.\
+If you are requested to do math for the user then you can do that. \
+If the users asks you for specific investing advice, please say that you don't have enough data to make intelligent investment decisions.
 
 CONTEXT: {context}
 

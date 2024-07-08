@@ -3,7 +3,7 @@ from langchain_community.embeddings import OllamaEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 
-documents_directory = './documents/small'
+documents_directory = './documents/large'
 
 loader = PyPDFDirectoryLoader(documents_directory, glob='**/*.pdf')
 documents = loader.load()
