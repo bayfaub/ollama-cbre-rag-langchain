@@ -3,6 +3,12 @@ from langchain_community.vectorstores import Chroma
 from langchain_community.chat_models import ChatOllama
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.prompts import ChatPromptTemplate
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain.chains import APIChain
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 embeddings = OllamaEmbeddings(model='nomic-embed-text', show_progress=False)
 
@@ -28,19 +34,26 @@ QUESTION: {question}
 
 prompt = ChatPromptTemplate.from_template(template)
 
+chat_history = ChatMessageHistory()
+
 chain = ({"context": retriever, "question": RunnablePassthrough()} | prompt | llm)
 
 def ask_question(question: str):
     print("Answer(please wait while I think):\n")
+    response = ""
     for chunk in chain.stream(question):
+        response += chunk.content
         print( chunk.content , end="", flush=True)
     print('\n')
+    print(response)
+    chat_history.add_ai_message(response)
     
 
 if __name__ == "__main__":
     while True:
         question = input("Please input a question relating to commercial real estate (or type 'quit' to exit):\n")
+        chat_history.add_user_message(question)
         if question.lower() == 'quit':
             break
-        answer = ask_question(question)
+        ask_question(question)
         print('Answer complete.')
