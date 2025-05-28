@@ -7,7 +7,7 @@
 4. Expand the project into a more complex agent(work in progess)
 
 ## Local Project Setup
- 1. Run ```pip install requirements.txt``` make sure you're running 3.10 in a virtual environment
+ 1. Run ```pip install requirements.txt``` make sure you're running python 3.10 in a virtual environment
  2. Download [Ollama](https://ollama.com/download)
  3. Install the Gemma2 9B model using `Ollama pull gemma2`
  4. Install the nomic-embed-text model using `Ollama pull nomic-embed-text`
